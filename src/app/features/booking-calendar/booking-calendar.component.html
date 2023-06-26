@@ -1,0 +1,5 @@
+
+<mat-card class="demo-inline-calendar-card">
+  <mat-calendar [selected]="selectedDateRange" (selectedChange)="onSelectedChange($event)"></mat-calendar>
+</mat-card>
+Data wyjazdu: {{getFormatedDate(selectedDateRange.start)}} do {{selectedDateRange.end}}
