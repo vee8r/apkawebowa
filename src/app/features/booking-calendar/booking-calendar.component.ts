@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {DateRange} from "@angular/material/datepicker";
+import {ReservationService} from "../services/reservation.service";
+import {Reservation} from "../models/Reservation";
 
 @Component({
   selector: 'app-booking-calendar',
@@ -8,6 +10,9 @@ import {DateRange} from "@angular/material/datepicker";
 })
 export class BookingCalendarComponent {
   selectedDateRange: DateRange<Date> = new DateRange(new Date(), null);
+
+  constructor(private reservationService: ReservationService) {
+  }
 
   onSelectedChange(date: Date) {
     if (
@@ -25,10 +30,19 @@ export class BookingCalendarComponent {
     }
   }
 
-  getFormatedDate(date: any) {
-    if(date!=null)
-    return date.toDateString();
-    else
-      return "";
+
+  createReservation() {
+    if (this.selectedDateRange.start != null && this.selectedDateRange.end != null) {
+      var reservation = new Reservation();
+      reservation.stayStartDate = this.selectedDateRange.start;
+      reservation.stayEndDate = this.selectedDateRange.end;
+
+      this.reservationService.createReservation(reservation).subscribe(
+        value => {
+        }
+      );
+    }
   }
+
+
 }

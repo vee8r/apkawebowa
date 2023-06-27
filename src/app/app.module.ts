@@ -29,6 +29,10 @@ import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatMenuModule} from "@angular/material/menu";
 import {LoginService} from "./features/services/login.service";
 import {RegisterService} from "./features/services/register.service";
+import {ReservationService} from "./features/services/reservation.service";
+import {AuthService} from "./features/services/auth.service";
+import {MatTableModule} from "@angular/material/table";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [
@@ -58,6 +62,8 @@ import {RegisterService} from "./features/services/register.service";
     MatSidenavModule,
     MatMenuModule,
     HttpClientModule,
+    MatTableModule,
+    MatIconModule,
     RouterModule.forRoot( [
       {
         path: '',
@@ -91,7 +97,9 @@ import {RegisterService} from "./features/services/register.service";
       useValue: 'pl-PL'
     },
     LoginService,
-    RegisterService
+    RegisterService,
+    AuthService,
+    ReservationService
   ],
   bootstrap: [AppComponent]
 })

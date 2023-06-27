@@ -1,1 +1,16 @@
 <app-booking-calendar></app-booking-calendar>
+
+<table mat-table [dataSource]="dataSource">
+  <ng-container matColumnDef="start">
+    <th mat-header-cell *matHeaderCellDef> Poczatek rezerwacji </th>
+    <td mat-cell *matCellDef="let element"> {{element.stayStartDate}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="end">
+    <th mat-header-cell *matHeaderCellDef> Koniec rezerwacji </th>
+    <td mat-cell *matCellDef="let element"> {{element.stayEndDate}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

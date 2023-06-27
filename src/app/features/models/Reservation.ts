@@ -1,12 +1,14 @@
 import {User} from "./User";
 
-export class Reservation{
-  private _id: number;
-  private _reservationDate: Date;
-  private _stayStartDate: Date;
-  private _stayEndDate: Date;
-  private _user: User;
+export class Reservation {
+  private _id: number = 0;
+  private _reservationDate: Date = new Date();
+  private _stayStartDate: Date = new Date();
+  private _stayEndDate: Date = new Date();
 
+
+  constructor() {
+  }
 
   get id(): number {
     return this._id;
@@ -40,19 +42,4 @@ export class Reservation{
     this._stayEndDate = value;
   }
 
-  get user(): User {
-    return this._user;
-  }
-
-  set user(value: User) {
-    this._user = value;
-  }
-
-  constructor(id: number, reservationDate: Date, stayStartDate: Date, stayEndDate: Date, user: User) {
-    this._id = id;
-    this._reservationDate = reservationDate;
-    this._stayStartDate = stayStartDate;
-    this._stayEndDate = stayEndDate;
-    this._user = user;
-  }
 }
