@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {RegisterService} from "../services/register.service";
+import {LoginService} from "../services/login.service";
 
 export class LoginCommand {
   login: string = "";
@@ -13,7 +15,10 @@ export class LoginCommand {
 export class LoginPanelComponent {
   loginCommand = new LoginCommand();
 
-  onSubmit() {
+  constructor(private loginService: LoginService) {
 
+  }
+  onSubmit() {
+    this.loginService.login(this.loginCommand.login, this.loginCommand.password);
   }
 }

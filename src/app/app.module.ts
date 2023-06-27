@@ -27,6 +27,8 @@ import {MatButton, MatButtonModule} from "@angular/material/button";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
 import {MatMenuModule} from "@angular/material/menu";
+import {LoginService} from "./features/services/login.service";
+import {RegisterService} from "./features/services/register.service";
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import {MatMenuModule} from "@angular/material/menu";
     MatGridListModule,
     MatSidenavModule,
     MatMenuModule,
+    HttpClientModule,
     RouterModule.forRoot( [
       {
         path: '',
@@ -86,7 +89,9 @@ import {MatMenuModule} from "@angular/material/menu";
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'pl-PL'
-    }
+    },
+    LoginService,
+    RegisterService
   ],
   bootstrap: [AppComponent]
 })
