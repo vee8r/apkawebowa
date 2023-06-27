@@ -24,6 +24,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {HttpClientModule} from "@angular/common/http";
 import {MatButton, MatButtonModule} from "@angular/material/button";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
+import {MatMenuModule} from "@angular/material/menu";
 
 @NgModule({
   declarations: [
@@ -49,6 +52,9 @@ import {MatButton, MatButtonModule} from "@angular/material/button";
     CommonModule,
     HttpClientModule,
     MatButtonModule,
+    MatGridListModule,
+    MatSidenavModule,
+    MatMenuModule,
     RouterModule.forRoot( [
       {
         path: '',

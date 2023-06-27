@@ -1,4 +1,4 @@
-.toolbar div{
+.toolbar a{
   margin: 5px;
 }
 
@@ -43,7 +43,6 @@ p {
 
 .toolbar a {
   color: white;
-  margin: 5px;
 }
 
 .toolbar img {

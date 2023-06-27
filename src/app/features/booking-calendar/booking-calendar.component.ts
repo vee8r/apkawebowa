@@ -26,10 +26,9 @@ export class BookingCalendarComponent {
   }
 
   getFormatedDate(date: any) {
-    if (date != undefined) {
-      date.getUTCDate()
-    } else {
-      "";
-    }
+    if(date!=null)
+    return date.toDateString();
+    else
+      return "";
   }
 }
