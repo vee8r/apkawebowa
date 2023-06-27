@@ -19,7 +19,6 @@ import {RouterModule} from "@angular/router";
 import { HomePageComponent } from './features/home-page/home-page.component';
 import { RegisterComponent } from './features/register/register.component';
 import { MyBookingsComponent } from './features/my-bookings/my-bookings.component';
-import { DescriptionComponent } from './features/description/description.component';
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
@@ -36,7 +35,6 @@ import {MatButton, MatButtonModule} from "@angular/material/button";
     HomePageComponent,
     RegisterComponent,
     MyBookingsComponent,
-    DescriptionComponent
   ],
   imports: [
     BrowserModule,
