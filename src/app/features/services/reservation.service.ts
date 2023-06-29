@@ -10,8 +10,7 @@ import {Reservation} from "../models/Reservation";
 export class ReservationService {
 
   headers = new HttpHeaders({
-    'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
-    'Authorization': 'Basic ' + btoa("user"+':' + "password")
+    'Content-type': 'application/json'
   });
   options = {headers: this.headers};
 
@@ -25,5 +24,13 @@ export class ReservationService {
 
   public createReservation(reservation: Reservation): Observable<Reservation> {
     return this.httpClient.post<Reservation>(`${environments.apiEndpoint}/reservations`, reservation, this.options);
+  }
+
+  public deleteReservation(id: number): Observable<Reservation> {
+    return this.httpClient.delete<Reservation>(`${environments.apiEndpoint}/reservations/${id}`, this.options);
+  }
+
+  public updateReservation(reservation: Reservation): Observable<Reservation> {
+    return this.httpClient.put<Reservation>(`${environments.apiEndpoint}/reservations/${reservation.id}`, reservation, this.options);
   }
 }

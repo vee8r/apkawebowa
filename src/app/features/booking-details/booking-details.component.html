@@ -1,1 +1,24 @@
-<p>booking-details works!</p>
+<h1 mat-dialog-title>Edycja rezerwacji</h1>
+<div mat-dialog-content>
+  <form [formGroup]="bookingForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Poczatek rezerwacji</mat-label>
+      <input matInput [matDatepicker]="startpicker" formControlName="startDate" (dateChange)="setStart($event)">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="startpicker"></mat-datepicker-toggle>
+      <mat-datepicker #startpicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Koniec rezerwacji</mat-label>
+      <input matInput [matDatepicker]="endpicker" formControlName="endDate" (dateChange)="setStart($event)">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="endpicker"></mat-datepicker-toggle>
+      <mat-datepicker #endpicker></mat-datepicker>
+    </mat-form-field>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="save()">Zapisz</button>
+  <button mat-button primary mat-dialog-close>Anuluj</button>
+</div>

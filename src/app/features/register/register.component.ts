@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {User} from "../models/User";
-import {RegisterService} from "../services/register.service";
+import {RegisterService, SignUpRequest} from "../services/register.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-register',
@@ -8,15 +9,19 @@ import {RegisterService} from "../services/register.service";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  registerCommand = new User();
+  registerCommand = new SignUpRequest();
 
-  constructor(private registerService: RegisterService) {
+  constructor(private registerService: RegisterService,
+              private router: Router) {
 
   }
 
   onSubmit() {
-    this.registerService.createUser(this.registerCommand).subscribe(
+    this.registerService.signup(this.registerCommand).subscribe(
       value => {
+        localStorage.setItem('token', value.token);
+        this.router.navigateByUrl("/bookings")
+
       }
     );
   }

@@ -22,7 +22,7 @@ import { MyBookingsComponent } from './features/my-bookings/my-bookings.componen
 import {MatInputModule} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatButton, MatButtonModule} from "@angular/material/button";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatSidenav, MatSidenavModule} from "@angular/material/sidenav";
@@ -33,6 +33,8 @@ import {ReservationService} from "./features/services/reservation.service";
 import {AuthService} from "./features/services/auth.service";
 import {MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
+import {TokenInterceptor} from "./features/services/TokenInterceptor";
+import {MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
@@ -64,6 +66,7 @@ import {MatIconModule} from "@angular/material/icon";
     HttpClientModule,
     MatTableModule,
     MatIconModule,
+    MatDialogModule,
     RouterModule.forRoot( [
       {
         path: '',
@@ -95,6 +98,11 @@ import {MatIconModule} from "@angular/material/icon";
     {
       provide: MAT_DATE_LOCALE,
       useValue: 'pl-PL'
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
     },
     LoginService,
     RegisterService,

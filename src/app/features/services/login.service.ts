@@ -5,9 +5,18 @@ import {environments} from "../../../environments/environments";
 import {Router} from "@angular/router";
 
 class LoginResponse {
-  access_token: string = "";
-  refresh_token: string = ""
-  expires_in: number = 0;
+  token: string = "";
+}
+
+export class LoginRequest {
+  private email: string;
+  private password: string;
+
+  constructor(username: string, password: string) {
+    this.email = username;
+    this.password = password;
+  }
+
 }
 
 @Injectable({
@@ -20,29 +29,20 @@ export class LoginService {
   }
 
   async login(username: string, password: string) {
-    const params = new URLSearchParams();
-    params.append('username', username);
-    params.append('password', password);
-    params.append('grant_type', 'password');
-
-    const response = await this.httpClient.post<LoginResponse>(`${environments.apiEndpoint}/oauth/token`, params.toString()).toPromise();
-    if (response) {
-      this.extractAuthenticationResponse(response);
+    const loginRequest = new LoginRequest(username, password);
+    const [response] = await Promise.all([this.httpClient.post<LoginResponse>(`${environments.apiEndpoint}/auth/signin`, loginRequest)]);
+    response.subscribe(value => {
+      this.extractAuthenticationResponse(value);
       this.router.navigateByUrl("/bookings")
-    }
+    })
   }
 
   private extractAuthenticationResponse(response: LoginResponse) {
-    localStorage.setItem('token', response.access_token);
-    localStorage.setItem('refresh_token', response.refresh_token);
-    localStorage.setItem('token_expires_in', (Date.now() + response.expires_in * 1000).toString());
+    localStorage.setItem('token', response.token);
   }
 
   logout() {
     localStorage.removeItem('token');
-    localStorage.removeItem('refresh_token');
-    localStorage.removeItem('token_expires_in');
-    localStorage.removeItem('stayLoggedIn');
     this.router.navigateByUrl('/');
   }
 
