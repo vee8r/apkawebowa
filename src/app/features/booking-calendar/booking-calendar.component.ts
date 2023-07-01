@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {DateRange} from "@angular/material/datepicker";
 import {ReservationService} from "../services/reservation.service";
-import {Reservation} from "../models/Reservation";
+import {Payment, PriceEntry, Reservation} from "../models/Reservation";
 import {Router} from "@angular/router";
+import {MatSelectChange} from "@angular/material/select";
 
 @Component({
   selector: 'app-booking-calendar',
@@ -12,6 +13,8 @@ import {Router} from "@angular/router";
 export class BookingCalendarComponent {
   @Output() bookings: EventEmitter<Array<Reservation>> = new EventEmitter<Array<Reservation>>();
   selectedDateRange: DateRange<Date> = new DateRange(new Date(), null);
+  private price: any;
+  selected = "ONE";
 
   constructor(private reservationService: ReservationService,
               private router: Router) {
@@ -37,8 +40,9 @@ export class BookingCalendarComponent {
   createReservation() {
     if (this.selectedDateRange.start != null && this.selectedDateRange.end != null) {
       var reservation = new Reservation();
-      reservation.stayStartDate = this.selectedDateRange.start;
-      reservation.stayEndDate = this.selectedDateRange.end;
+      reservation.stayStartDate = addHours(this.selectedDateRange.start,12);
+      reservation.stayEndDate = addHours(this.selectedDateRange.end, 12);
+      reservation.priceEntry = this.getPrice(this.price);
 
       this.reservationService.createReservation(reservation).subscribe(
         value => {
@@ -53,4 +57,35 @@ export class BookingCalendarComponent {
     }
   }
 
+
+
+  setPrice($event: MatSelectChange) {
+    this.price = $event.value;
+  }
+
+  private getPrice(price: any): PriceEntry {
+    switch (price) {
+      case 'ONE':
+        return {price: 500};
+        break;
+      case 'ONEPLUS':
+        return {price: 750};
+        break;
+      case 'TWO':
+        return {price: 600};
+        break;
+      case 'TWOPLUS':
+        return {price: 850};
+        break;
+      default:
+        return {price: 500};
+    }
+
+  }
 }
+
+export const addHours = (date: Date, hours: number): Date => {
+  const result = new Date(date);
+  result.setHours(result.getHours() + hours);
+  return result;
+};

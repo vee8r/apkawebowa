@@ -4,6 +4,7 @@ import {ReservationService} from "../services/reservation.service";
 import {Reservation} from "../models/Reservation";
 import {FormBuilder, FormControl} from "@angular/forms";
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {addHours} from "../booking-calendar/booking-calendar.component";
 
 @Component({
   selector: 'app-booking-details',
@@ -28,12 +29,13 @@ export class BookingDetailsComponent {
   }
 
   setStart(event: MatDatepickerInputEvent<Date>) {
-    if(event.value != null)
-    this.reservation.stayStartDate = event.value;
+    if (event.value != null)
+      this.reservation.stayStartDate = addHours(event.value, 12);
   }
+
   setEnd(event: MatDatepickerInputEvent<Date>) {
-    if(event.value != null)
-    this.reservation.stayEndDate = event.value;
+    if (event.value != null)
+      this.reservation.stayEndDate = addHours(event.value, 12);
   }
 
 

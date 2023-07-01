@@ -1,5 +1,21 @@
+<mat-card>
+  <mat-card-content>
+    <mat-card class="demo-inline-calendar-card">
+      <mat-calendar [selected]="selectedDateRange" (selectedChange)="onSelectedChange($event)"></mat-calendar>
+    </mat-card>
 
-<mat-card class="demo-inline-calendar-card">
-  <mat-calendar [selected]="selectedDateRange" (selectedChange)="onSelectedChange($event)"></mat-calendar>
+    <mat-form-field class="demo-inline-calendar-card">
+      <mat-label>Wybierz cenę</mat-label>
+      <mat-select (selectionChange)="setPrice($event)" [(value)]="selected">
+        <mat-option value="ONE">Domek MIĘTA- 500zł/noc</mat-option>
+        <mat-option value="ONEPLUS">Domek MIĘTA + strefa SPA- 750zł/noc</mat-option>
+        <mat-option value="TWO">Domek GRADIENT- 600zł/noc</mat-option>
+        <mat-option value="TWOPLUS">Domek GRADIENT + strefa SPA- 850zł/noc</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-raised-button color="accent" (click)="createReservation()">Rezerwuj</button>
+  </mat-card-actions>
 </mat-card>
-<button mat-raised-button color="accent" (click)="createReservation()">Rezerwuj</button>

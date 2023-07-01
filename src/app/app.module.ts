@@ -11,7 +11,13 @@ import {
   MatCalendar, MatDatepickerModule
 } from "@angular/material/datepicker";
 import {MatCardModule} from "@angular/material/card";
-import {MAT_DATE_LOCALE, MatNativeDateModule} from "@angular/material/core";
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MAT_DATE_LOCALE,
+  MatNativeDateModule,
+  MatOptionModule
+} from "@angular/material/core";
 import { GalleryComponent } from './features/gallery/gallery.component';
 import { LoginPanelComponent } from './features/login-panel/login-panel.component';
 import { BookingDetailsComponent } from './features/booking-details/booking-details.component';
@@ -35,6 +41,10 @@ import {MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
 import {TokenInterceptor} from "./features/services/TokenInterceptor";
 import {MatDialog, MatDialogModule} from "@angular/material/dialog";
+import {MatSelectModule} from "@angular/material/select";
+import {ErrorInterceptor} from "./features/services/ErrorInterceptor";
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MatMomentDateModule} from "@angular/material-moment-adapter";
+import {PICK_FORMATS, PickDateAdapter} from "./features/services/PickDateAdapter";
 
 @NgModule({
   declarations: [
@@ -53,6 +63,7 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
     BrowserAnimationsModule,
     MatCardModule,
     MatDatepickerModule,
+    MatMomentDateModule,
     MatNativeDateModule,
     MatInputModule,
     FormsModule,
@@ -67,17 +78,17 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
     MatTableModule,
     MatIconModule,
     MatDialogModule,
-    RouterModule.forRoot( [
+    RouterModule.forRoot([
       {
         path: '',
         component: HomePageComponent
       },
       {
-        path:'login',
-        component:LoginPanelComponent
+        path: 'login',
+        component: LoginPanelComponent
       },
       {
-        path:'register',
+        path: 'register',
         component: RegisterComponent
       },
       {
@@ -88,12 +99,18 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
         path: 'gallery',
         component: GalleryComponent
       }
-    ],{})
+    ], {}),
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [
     {
       provide:MAT_DATE_RANGE_SELECTION_STRATEGY,
       useClass: DefaultMatCalendarRangeStrategy,
+    },
+    {
+      provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+      useValue: { useUtc: true }
     },
     {
       provide: MAT_DATE_LOCALE,
@@ -102,6 +119,11 @@ import {MatDialog, MatDialogModule} from "@angular/material/dialog";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true
     },
     LoginService,

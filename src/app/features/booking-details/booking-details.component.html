@@ -10,7 +10,7 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Koniec rezerwacji</mat-label>
-      <input matInput [matDatepicker]="endpicker" formControlName="endDate" (dateChange)="setStart($event)">
+      <input matInput [matDatepicker]="endpicker" formControlName="endDate" (dateChange)="setEnd($event)">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="endpicker"></mat-datepicker-toggle>
       <mat-datepicker #endpicker></mat-datepicker>
